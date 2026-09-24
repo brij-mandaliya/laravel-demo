@@ -11,8 +11,7 @@ services:
         value: "false"
       - key: APP_URL
         value: https://poster.onrender.com
-      - key: RENDER_EXTERNAL_URL
-        sync: false
+
       - key: APP_KEY
         generateValue: true
       - key: DB_CONNECTION

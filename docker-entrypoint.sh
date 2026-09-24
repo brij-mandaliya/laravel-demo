@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -z "$APP_KEY" ] || [ "$(echo "$APP_KEY" | wc -c)" -lt 20 ]; then
+if [ -z "$APP_KEY" ] || ! echo "$APP_KEY" | grep -q '^base64:'; then
     php artisan key:generate --force
 fi
 

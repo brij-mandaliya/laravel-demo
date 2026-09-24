@@ -26,15 +26,8 @@ RUN mkdir -p storage/framework/{views,cache,sessions} storage/logs && \
     chmod -R 775 storage bootstrap/cache && \
     chown -R www-data:www-data storage bootstrap/cache
 
-RUN echo "#!/bin/sh" > /docker-entrypoint.sh \
-    && echo 'if [ -z \"\$APP_KEY\" ] || [ \"\$(echo \"\$APP_KEY\" | wc -c)\" -lt 20 ]; then' >> /docker-entrypoint.sh \
-    && echo '    php artisan key:generate --force' >> /docker-entrypoint.sh \
-    && echo 'fi' >> /docker-entrypoint.sh \
-    && echo "php artisan migrate --force" >> /docker-entrypoint.sh \
-    && echo "[ -z \"\$APP_URL\" ] && export APP_URL=\"https://\${RENDER_EXTERNAL_HOST}.onrender.com\"" >> /docker-entrypoint.sh \
-    && echo "php-fpm -D" >> /docker-entrypoint.sh \
-    && echo "nginx -g 'daemon off;'" >> /docker-entrypoint.sh \
-    && chmod +x /docker-entrypoint.sh
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
 COPY nginx.conf /etc/nginx/http.d/default.conf
 

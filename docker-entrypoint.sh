@@ -1,8 +1,7 @@
 #!/bin/sh
 
 if [ -z "$APP_KEY" ] || ! echo "$APP_KEY" | grep -q '^base64:'; then
-    php artisan key:generate --force
-    export APP_KEY=$(grep '^APP_KEY=' .env | tail -1 | cut -d= -f2)
+    export APP_KEY="base64:$(php -r "echo base64_encode(random_bytes(32));")"
 fi
 
 php artisan migrate --force

@@ -23,7 +23,8 @@ COPY . .
 
 RUN mkdir -p storage/framework/{views,cache,sessions} storage/logs && \
     composer run-script post-autoload-dump && \
-    chmod -R 775 storage bootstrap/cache
+    chmod -R 775 storage bootstrap/cache && \
+    chown -R www-data:www-data storage bootstrap/cache
 
 RUN echo "#!/bin/sh" > /docker-entrypoint.sh \
     && echo "php artisan migrate --force" >> /docker-entrypoint.sh \

@@ -1,11 +1,8 @@
-services:
+[services:
   - type: web
     name: poster
-    runtime: php
+    runtime: docker
     plan: free
-    buildCommand: composer install --no-dev --optimize-autoloader && npm ci && npm run build
-    preDeployCommand: php artisan migrate --force
-    startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
     healthCheckPath: /up
     envVars:
       - key: APP_ENV
@@ -14,6 +11,8 @@ services:
         value: "false"
       - key: APP_URL
         value: https://poster.onrender.com
+      - key: RENDER_EXTERNAL_URL
+        sync: false
       - key: APP_KEY
         generateValue: true
       - key: DB_CONNECTION

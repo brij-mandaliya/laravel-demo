@@ -9,8 +9,6 @@ services:
         value: production
       - key: APP_DEBUG
         value: "false"
-      - key: APP_URL
-        value: https://poster.onrender.com
 
       - key: DB_CONNECTION
         value: pgsql

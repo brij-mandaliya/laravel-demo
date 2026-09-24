@@ -7,7 +7,7 @@ fi
 php artisan migrate --force
 
 if [ -z "$APP_URL" ]; then
-    export APP_URL="https://${RENDER_EXTERNAL_HOST}.onrender.com"
+    export APP_URL="https://${RENDER_EXTERNAL_HOSTNAME}"
 fi
 
 php-fpm -D

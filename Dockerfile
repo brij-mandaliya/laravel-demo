@@ -21,7 +21,8 @@ RUN npm ci && npm run build
 
 COPY . .
 
-RUN composer run-script post-autoload-dump && \
+RUN mkdir -p storage/framework/{views,cache,sessions} storage/logs && \
+    composer run-script post-autoload-dump && \
     chmod -R 775 storage bootstrap/cache
 
 RUN echo "#!/bin/sh" > /docker-entrypoint.sh \
